@@ -29,5 +29,16 @@ tabla_tipos = table(variables', tipos', 'VariableNames', {'NombreVariable', 'Tip
 
 for i = 1:length(variables)
     disp(['Tabla de frecuencias para ', variables{i}])
-    disp(tabulate(datos.(variables{i})))
+    if ismember(variables{i}, {'height', 'weight', 'age', 'tea', 'coffee'})
+        % Para variables continuas, muestra estadísticas descriptivas y un histograma
+        disp(min(datos.(variables{i})));
+        disp(max(datos.(variables{i})));
+        disp(mean(datos.(variables{i})));
+        disp(median(datos.(variables{i})));
+        histogram(datos.(variables{i}));
+    else
+        % Para variables categóricas, muestra una tabla de frecuencias y un gráfico de barras
+        disp(tabulate(datos.(variables{i})))
+        bar(tabulate(datos.(variables{i})))
+    end
 end
