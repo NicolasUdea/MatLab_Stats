@@ -82,3 +82,20 @@ for i = 1:length(variables)
         disp('ㅤㅤㅤㅤㅤㅤ')
     end
 end
+
+for i = 1:length(variables)
+    if ismember(variables{i}, {'height', 'weight', 'age', 'tea', 'coffee'})
+        % Para variables continuas, calcula los percentiles y identifica los valores atípicos
+        disp(' ');
+        disp('=====================================');
+        disp(' ');
+        disp(['**Análisis de valores atípicos para la variable ', variables{i}, '**'])
+        Q1 = prctile(datos.(variables{i}), 25);
+        Q3 = prctile(datos.(variables{i}), 75);
+        IQR = Q3 - Q1;
+        lower_bound = Q1 - 1.5 * IQR;
+        upper_bound = Q3 + 1.5 * IQR;
+        outliers = datos.(variables{i}) < lower_bound | datos.(variables{i}) > upper_bound;
+        disp(['Número de valores atípicos en ', variables{i}, ': ', num2str(sum(outliers))]);
+    end
+end
