@@ -155,3 +155,30 @@ colormap(jet); % Crea un degradado de colores tipo arcoiris (estético)
 title('Relación entre altura y peso');
 xlabel('Altura (cm)');
 ylabel('Peso (kg)');
+
+matriz_correlacion = corrcoef(table2array(datos));
+
+% Visualizar la matriz de correlación
+figure;
+imagesc(matriz_correlacion);
+colorbar; % Agrega una barra de colores
+title('Matriz de correlación');
+xlabel('Variables');
+ylabel('Variables');
+
+% Etiquetas de los ejes x e y
+xticks(1:length(datos.Properties.VariableNames));
+xticklabels(datos.Properties.VariableNames);
+xtickangle(90); % Rotar las etiquetas 90 grados
+yticks(1:length(datos.Properties.VariableNames));
+yticklabels(datos.Properties.VariableNames);
+
+% Realizar el análisis de varianza (ANOVA) para cada variable
+for i = 1:width(datos)
+    disp('=====================================');
+    disp(['Análisis de varianza ANOVA para ', ...
+        datos.Properties.VariableNames{i}, ':']);
+    [p, tbl, stats] = anova1(table2array(datos(:,i)));
+    disp(tbl);
+    disp('=====================================');
+end
