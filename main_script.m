@@ -99,3 +99,34 @@ for i = 1:length(variables)
         disp(['Número de valores atípicos en ', variables{i}, ': ', num2str(sum(outliers))]);
     end
 end
+
+grupo_hombres = datos(datos.gender == 1, :);
+grupo_mujeres = datos(datos.gender == 2, :);
+edad_hombres = grupo_hombres.age;
+edad_mujeres = grupo_mujeres.age;
+
+% Crear histogramas para la variable 'age' en cada grupo
+figure;
+subplot(2,1,1);
+histogram(edad_hombres);
+title('Distribución de edades para hombres');
+xlabel('Edad');
+ylabel('Frecuencia');
+
+subplot(2,1,2);
+histogram(edad_mujeres, 'FaceColor', 'm');
+title('Distribución de edades para mujeres');
+xlabel('Edad');
+ylabel('Frecuencia');
+
+% Extraer las variables de interés
+altura = datos.height;
+peso = datos.weight;
+
+% Crear un gráfico de dispersión
+figure;
+scatter(altura, peso, 15, peso, 'filled');
+colormap(jet); % Crea un degradado de colores tipo arcoiris (estético)
+title('Relación entre altura y peso');
+xlabel('Altura (cm)');
+ylabel('Peso (kg)');
